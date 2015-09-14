@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Now, when you include this layout in another layout (using the <include/> tag), the system ignores
+the <merge> element and places the two buttons directly in the layout, in place of the <include/> tag.
+http://developer.android.com/training/improving-layouts/reusing-layouts.html#Merge
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        />
+
+</merge>

@@ -1,7 +1,28 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:id="@+id/fragment"
-          android:name="com.vm.guides.MainActivityFragment"
-          tools:layout="@layout/fragment_main"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <!--
+    You can also override all the layout parameters (any android:layout_* attributes) of the included layout's root view by specifying them in the <include/> tag.
+    http://developer.android.com/training/improving-layouts/reusing-layouts.html
+    -->
+    <include
+        layout="@layout/include_titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <include
+        layout="@layout/merge_btns_add_delete"/>
+
+    <fragment
+        android:id="@+id/fragment"
+        android:name="com.vm.guides.MainActivityFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_main"/>
+</LinearLayout>

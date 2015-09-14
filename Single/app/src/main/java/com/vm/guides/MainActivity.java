@@ -1,19 +1,26 @@
 package com.vm.guides;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+        findViewById(R.id.addButton).setOnClickListener(this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,4 +43,29 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View v) {
+
+        int id = v.getId();
+        if (id == R.id.addButton) {
+            PopupMenu menu = new PopupMenu(this, v);
+            for (Class<?> fragmentClass : Fragments.FRAGMENT_LIST) {
+                menu.getMenu().add(fragmentClass.getSimpleName());
+            }
+            menu.setOnMenuItemClickListener(addFragmentListener);
+            menu.show();
+        }
+    }
+
+    private PopupMenu.OnMenuItemClickListener addFragmentListener = new PopupMenu.OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(item.getOrder());
+            Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
+            return false;
+        }
+    };
 }
