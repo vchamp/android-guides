@@ -2,5 +2,6 @@
 <resources>
     <color name="app_bg">#ddffcc</color>
     <color name="titlebar_bg">#ccffdd</color>
-    <color name="fragment_bg">#bbddff</color>
+    <color name="fragment_main_bg">#bbddff</color>
+    <color name="fragment_viewstub_bg">#abfecd</color>
 </resources>

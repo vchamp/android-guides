@@ -1,15 +1,17 @@
 package com.vm.guides;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -18,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.addButton).setOnClickListener(this);
     }
@@ -58,13 +63,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private PopupMenu.OnMenuItemClickListener addFragmentListener = new PopupMenu.OnMenuItemClickListener() {
+    private PopupMenu.OnMenuItemClickListener addFragmentListener = new PopupMenu
+            .OnMenuItemClickListener() {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
 
             Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(item.getOrder());
             Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
+
+            try {
+                Fragment fragment = fragmentClass.newInstance();
+                //            To make fragment transactions in your activity (such as add,
+                // remove, or
+                // replace a fragment), you must use APIs from FragmentTransaction
+                //            http://developer.android.com/guide/components/fragments.html
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.fragment, fragment);
+                fragmentTransaction.addToBackStack("Undo");
+                fragmentTransaction.commit();
+
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
             return false;
         }
     };

@@ -2,12 +2,14 @@ package com.vm.guides.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.vm.guides.R;
 
@@ -70,6 +72,19 @@ public class ViewStubFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_stub, container, false);
+    }
+
+    public void act(View v) {
+
+        //        When you want to load the layout specified by the ViewStub, either set it
+        // visible by calling setVisibility(View.VISIBLE) or call inflate()
+        //        http://developer.android.com/training/improving-layouts/loading-ondemand.html
+        View importPanel = ((ViewStub) getView().findViewById(R.id.viewstub)).inflate();
+    }
+
+    public void checkIt(View v) {
+
+        getView().findViewById(R.id.viewstub_component).setBackgroundColor(Color.RED);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
