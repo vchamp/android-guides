@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import com.vm.guides.R;
+import com.vm.guides.common.ColorUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,7 +22,7 @@ import com.vm.guides.R;
  * Use the {@link ViewStubFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ViewStubFragment extends Fragment {
+public class ViewStubFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,17 +75,11 @@ public class ViewStubFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_view_stub, container, false);
     }
 
-    public void act(View v) {
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        //        When you want to load the layout specified by the ViewStub, either set it
-        // visible by calling setVisibility(View.VISIBLE) or call inflate()
-        //        http://developer.android.com/training/improving-layouts/loading-ondemand.html
-        View importPanel = ((ViewStub) getView().findViewById(R.id.viewstub)).inflate();
-    }
-
-    public void checkIt(View v) {
-
-        getView().findViewById(R.id.viewstub_component).setBackgroundColor(Color.RED);
+        super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.actButton).setOnClickListener(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -114,6 +109,30 @@ public class ViewStubFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.actButton) {
+            act();
+        } else if (id == R.id.checkItButton) {
+            checkIt();
+        }
+    }
+
+    private void act() {
+
+        //        When you want to load the layout specified by the ViewStub, either set it
+        // visible by calling setVisibility(View.VISIBLE) or call inflate()
+        //        http://developer.android.com/training/improving-layouts/loading-ondemand.html
+        View importPanel = ((ViewStub) getView().findViewById(R.id.viewstub)).inflate();
+        importPanel.findViewById(R.id.checkItButton).setOnClickListener(this);
+    }
+
+    private void checkIt() {
+
+        getView().findViewById(R.id.viewstub_component).setBackgroundColor(ColorUtil.randomColor());
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -129,5 +148,4 @@ public class ViewStubFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

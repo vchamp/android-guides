@@ -13,11 +13,10 @@
         android:text="@string/view_stub_info"/>
 
     <Button
+        android:id="@+id/actButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="act"
-        android:text="@string/act"
-        />
+        android:text="@string/act"/>
 
     <ViewStub
         android:id="@+id/viewstub"

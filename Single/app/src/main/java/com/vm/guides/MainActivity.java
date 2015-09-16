@@ -4,12 +4,15 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
+
+import com.vm.guides.bestpractui.MaterialActivity;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -44,6 +47,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_material) {
+            startActivity(new Intent(this, MaterialActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
