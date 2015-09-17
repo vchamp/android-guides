@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import com.vm.guides.bestpractui.MaterialActivity;
+import com.vm.guides.bestpractui.MaterialActivityPreAPI21;
+import com.vm.guides.common.FragmentUtil;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -49,6 +51,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return true;
         } else if (id == R.id.action_material) {
             startActivity(new Intent(this, MaterialActivity.class));
+        } else if (id == R.id.action_material_preAPI21) {
+            startActivity(new Intent(this, MaterialActivityPreAPI21.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,24 +80,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(item.getOrder());
             Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
-
-            try {
-                Fragment fragment = fragmentClass.newInstance();
-                //            To make fragment transactions in your activity (such as add,
-                // remove, or
-                // replace a fragment), you must use APIs from FragmentTransaction
-                //            http://developer.android.com/guide/components/fragments.html
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.add(R.id.fragment, fragment);
-                fragmentTransaction.addToBackStack("Undo");
-                fragmentTransaction.commit();
-
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            return false;
+            FragmentUtil.addFragment(MainActivity.this, fragmentClass, R.id.fragment);
+            return true;
         }
     };
 }

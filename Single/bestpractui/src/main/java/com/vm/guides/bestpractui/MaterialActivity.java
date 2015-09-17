@@ -1,11 +1,17 @@
 package com.vm.guides.bestpractui;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vm.guides.common.FragmentUtil;
+
 public class MaterialActivity extends Activity {
+
+    private static final String TAG = MaterialActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +23,12 @@ public class MaterialActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_material, menu);
+//        getMenuInflater().inflate(R.menu.menu_material, menu);
+        int index = 0;
+        for (Class<? extends Fragment> fragmentClass : Fragments.FRAGMENT_LIST) {
+            menu.add(Menu.NONE, Menu.FIRST + index, Menu.NONE, fragmentClass.getSimpleName());
+            index++;
+        }
         return true;
     }
 
@@ -28,11 +39,15 @@ public class MaterialActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        int index = id - Menu.FIRST;
 
-        return super.onOptionsItemSelected(item);
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(index);
+        Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
+        FragmentUtil.addFragment(this, fragmentClass, R.id.fragment);
+        return true;
     }
 }
