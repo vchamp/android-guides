@@ -1,4 +1,4 @@
-package com.vm.guides.bestpractui;
+package com.vm.guides.bestpractui.fragments;
 
 import android.app.Fragment;
 
@@ -13,5 +13,7 @@ public class Fragments {
 
     static {
         FRAGMENT_LIST.add(RecyclerViewFragment.class);
+        FRAGMENT_LIST.add(CardViewFragment.class);
+        FRAGMENT_LIST.add(ShadowsFragment.class);
     }
 }

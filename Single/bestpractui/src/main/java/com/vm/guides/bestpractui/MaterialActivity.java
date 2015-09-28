@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.vm.guides.bestpractui.fragments.Fragments;
 import com.vm.guides.common.FragmentUtil;
 
 public class MaterialActivity extends Activity {
@@ -41,10 +42,6 @@ public class MaterialActivity extends Activity {
 
         int index = id - Menu.FIRST;
 
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
         Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(index);
         Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
         FragmentUtil.addFragment(this, fragmentClass, R.id.fragment);
