@@ -1,6 +1,8 @@
 package com.vm.guides.bestpractui.fragments;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -45,7 +47,16 @@ public class ShadowsFragment extends Fragment implements View.OnClickListener {
 
         int id = v.getId();
         if (id == R.id.jumpingButton) {
-            v.animate().translationZBy(28).setDuration(1000);
+            final float translation = 28;
+            final long duration = 500;
+            final ViewPropertyAnimator animator = v.animate();
+            animator.translationZBy(translation).setDuration(duration).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                    animator.translationZBy(-translation).setDuration(duration);
+                }
+            });
         }
     }
 }

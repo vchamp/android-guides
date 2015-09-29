@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vm.guides.bestpractui.R;
-import com.vm.guides.bestpractui.recyclerview.SimplestAdapter;
+import com.vm.guides.bestpractui.adapters.SimplestAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

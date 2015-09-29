@@ -15,5 +15,7 @@ public class Fragments {
         FRAGMENT_LIST.add(RecyclerViewFragment.class);
         FRAGMENT_LIST.add(CardViewFragment.class);
         FRAGMENT_LIST.add(ShadowsFragment.class);
+        FRAGMENT_LIST.add(DrawablesFragment.class);
+        FRAGMENT_LIST.add(CustomAnimationsFragment.class);
     }
 }

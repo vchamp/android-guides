@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(item.getOrder());
             Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
-            FragmentUtil.addFragment(MainActivity.this, fragmentClass, R.id.fragment);
+            FragmentUtil.addFragment(MainActivity.this, fragmentClass, R.id.fragment, false);
             return true;
         }
     };

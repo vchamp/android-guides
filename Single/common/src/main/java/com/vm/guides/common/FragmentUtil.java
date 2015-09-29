@@ -6,7 +6,7 @@ import android.app.FragmentTransaction;
 
 public class FragmentUtil {
 
-    public static void addFragment(Activity activity, Class<? extends Fragment> fragmentClass, int fragmentContainerId) {
+    public static void addFragment(Activity activity, Class<? extends Fragment> fragmentClass, int fragmentContainerId, boolean replace) {
         try {
             Fragment fragment = fragmentClass.newInstance();
             //            To make fragment transactions in your activity (such as add,
@@ -14,7 +14,11 @@ public class FragmentUtil {
             // replace a fragment), you must use APIs from FragmentTransaction
             //            http://developer.android.com/guide/components/fragments.html
             FragmentTransaction fragmentTransaction = activity.getFragmentManager().beginTransaction();
-            fragmentTransaction.add(fragmentContainerId, fragment);
+            if (replace) {
+                fragmentTransaction.replace(fragmentContainerId, fragment);
+            } else {
+                fragmentTransaction.add(fragmentContainerId, fragment);
+            }
             fragmentTransaction.addToBackStack("Undo");
             fragmentTransaction.commit();
 
@@ -23,6 +27,5 @@ public class FragmentUtil {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
     }
 }

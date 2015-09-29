@@ -19,6 +19,8 @@ public class MaterialActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_material);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -40,11 +42,14 @@ public class MaterialActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        int index = id - Menu.FIRST;
-
-        Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(index);
-        Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
-        FragmentUtil.addFragment(this, fragmentClass, R.id.fragment);
-        return true;
+        if (id != android.R.id.home) {
+            int index = id - Menu.FIRST;
+            Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(index);
+            Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
+            FragmentUtil.addFragment(this, fragmentClass, R.id.fragment, true);
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 }
