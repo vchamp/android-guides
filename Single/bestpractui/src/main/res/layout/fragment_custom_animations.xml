@@ -32,6 +32,7 @@
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:src="@drawable/spacex"
         android:visibility="invisible"
+        android:transitionName="logo"
         tools:targetApi="lollipop"/>
 
 </LinearLayout>

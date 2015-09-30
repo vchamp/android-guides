@@ -4,15 +4,19 @@ package com.vm.guides.bestpractui.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.transition.ChangeImageTransform;
+import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 
 import com.vm.guides.bestpractui.R;
+import com.vm.guides.common.FragmentUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,11 +24,11 @@ import com.vm.guides.bestpractui.R;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class CustomAnimationsFragment extends Fragment implements View.OnClickListener {
 
-
     public CustomAnimationsFragment() {
-        // Required empty public constructor
-    }
 
+        super();
+        setEnterTransition(new Explode());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,6 +54,16 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
             revealImage();
         } else if (id == R.id.hideButton) {
             hideImage();
+        } else if (id == R.id.revealImage) {
+            setExitTransition(new ChangeImageTransform());
+
+            FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment, new TransitionFragment());
+            fragmentTransaction.addSharedElement(v, "logo");
+            fragmentTransaction.addToBackStack("Undo");
+            fragmentTransaction.commit();
+
+//            FragmentUtil.addFragment(getActivity(), TransitionFragment.class, R.id.fragment, true);
         }
     }
 
