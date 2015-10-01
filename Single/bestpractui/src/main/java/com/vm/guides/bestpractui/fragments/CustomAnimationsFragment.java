@@ -10,6 +10,7 @@ import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Path;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Explode;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.PathInterpolator;
+import android.widget.ImageView;
 
 import com.vm.guides.bestpractui.R;
 import com.vm.guides.bestpractui.activities.TransitionActivity;
@@ -31,7 +33,7 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
     public CustomAnimationsFragment() {
 
         super();
-        setEnterTransition(new Explode());
+//        setEnterTransition(new Explode());
     }
 
     @Override
@@ -50,6 +52,9 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
         view.findViewById(R.id.moveButton).setOnClickListener(this);
         view.findViewById(R.id.revealImage).setOnClickListener(this);
         view.findViewById(R.id.stateListAnimationButton).setOnClickListener(this);
+
+        ImageView vectorImage = (ImageView) view.findViewById(R.id.animVectorDrawableImageView);
+        ((AnimatedVectorDrawable) vectorImage.getDrawable()).start();
     }
 
     @Override

@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,19 +15,19 @@
             android:id="@+id/revealButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reveal"/>
+            android:text="Reveal" />
 
         <Button
             android:id="@+id/hideButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hide"/>
+            android:text="Hide" />
 
         <Button
             android:id="@+id/moveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Move"/>
+            android:text="Move" />
     </LinearLayout>
 
     <RelativeLayout
@@ -43,7 +42,7 @@
             android:layout_centerInParent="true"
             android:stateListAnimator="@drawable/state_list_animator"
             android:text="State list animation"
-            tools:targetApi="lollipop"/>
+            tools:targetApi="lollipop" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,7 +56,24 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@drawable/animated_selector"
-            android:text="Animated selector"/>
+            android:text="Animated selector" />
+
+        <ImageView
+            android:id="@+id/vectorDrawableImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/animatedSelectorButton"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/vectordrawable" />
+
+        <ImageView
+            android:id="@+id/animVectorDrawableImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/animatedSelectorButton"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/vectorDrawableImageView"
+            android:src="@drawable/animvectordrawable" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,7 +88,7 @@
             android:src="@drawable/spacex"
             android:transitionName="logo"
             android:visibility="invisible"
-            tools:targetApi="lollipop"/>
+            tools:targetApi="lollipop" />
     </RelativeLayout>
 
 </LinearLayout>
