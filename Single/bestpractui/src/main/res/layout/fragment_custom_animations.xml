@@ -23,16 +23,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hide"/>
+
+        <Button
+            android:id="@+id/moveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Move"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/revealImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/spacex"
-        android:visibility="invisible"
-        android:transitionName="logo"
-        tools:targetApi="lollipop"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/stateListAnimationButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:stateListAnimator="@drawable/state_list_animator"
+            android:text="State list animation"
+            tools:targetApi="lollipop"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/animatedSelectorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/animated_selector"
+            android:text="Animated selector"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:id="@+id/revealImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/spacex"
+            android:transitionName="logo"
+            android:visibility="invisible"
+            tools:targetApi="lollipop"/>
+    </RelativeLayout>
 
 </LinearLayout>

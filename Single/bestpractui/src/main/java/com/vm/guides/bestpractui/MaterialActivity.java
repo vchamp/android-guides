@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.vm.guides.bestpractui.fragments.Fragments;
 import com.vm.guides.common.FragmentUtil;
@@ -18,6 +19,10 @@ public class MaterialActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        // must be called before adding content
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
         setContentView(R.layout.activity_material);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);

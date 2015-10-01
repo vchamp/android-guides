@@ -1,8 +1,13 @@
 package com.vm.guides.bestpractui.fragments;
 
 
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.os.Build;
+import android.os.Bundle;
+import android.transition.ChangeImageTransform;
+import android.transition.Explode;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +17,13 @@ import com.vm.guides.bestpractui.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class TransitionFragment extends Fragment {
 
 
     public TransitionFragment() {
-        // Required empty public constructor
+
+        super();
     }
 
 

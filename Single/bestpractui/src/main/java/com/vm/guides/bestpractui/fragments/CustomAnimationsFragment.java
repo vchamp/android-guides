@@ -3,20 +3,24 @@ package com.vm.guides.bestpractui.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.annotation.TargetApi;
-import android.app.FragmentTransaction;
+import android.app.ActivityOptions;
+import android.app.Fragment;
+import android.content.Intent;
+import android.graphics.Path;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.transition.ChangeImageTransform;
 import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.PathInterpolator;
 
 import com.vm.guides.bestpractui.R;
-import com.vm.guides.common.FragmentUtil;
+import com.vm.guides.bestpractui.activities.TransitionActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +47,9 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
 
         view.findViewById(R.id.revealButton).setOnClickListener(this);
         view.findViewById(R.id.hideButton).setOnClickListener(this);
+        view.findViewById(R.id.moveButton).setOnClickListener(this);
         view.findViewById(R.id.revealImage).setOnClickListener(this);
+        view.findViewById(R.id.stateListAnimationButton).setOnClickListener(this);
     }
 
     @Override
@@ -54,16 +60,12 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
             revealImage();
         } else if (id == R.id.hideButton) {
             hideImage();
+        } else if (id == R.id.moveButton) {
+            moveImage();
         } else if (id == R.id.revealImage) {
-            setExitTransition(new ChangeImageTransform());
+            doTransition();
+        } else if (id == R.id.stateListAnimationButton) {
 
-            FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, new TransitionFragment());
-            fragmentTransaction.addSharedElement(v, "logo");
-            fragmentTransaction.addToBackStack("Undo");
-            fragmentTransaction.commit();
-
-//            FragmentUtil.addFragment(getActivity(), TransitionFragment.class, R.id.fragment, true);
         }
     }
 
@@ -114,5 +116,60 @@ public class CustomAnimationsFragment extends Fragment implements View.OnClickLi
 
         // start the animation
         anim.start();
+    }
+
+    private void moveImage() {
+
+        // misunderstanding
+
+        final View image = getView().findViewById(R.id.revealImage);
+
+        PathInterpolator interpolator = new PathInterpolator(0.4f, 0.2f, 1, 1);
+        Path path = new Path();
+        path.moveTo(0.25f, 0.5f);
+        path.lineTo(1f, 1f);
+//
+        ObjectAnimator animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_X, View.TRANSLATION_Y, path);
+//        animator.setFloatValues(100, 100);
+        animator.setValues(PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 200));
+        animator.setValues(PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 100));
+        animator.setDuration(1000);
+        animator.setInterpolator(interpolator);
+        animator.start();
+    }
+
+    private void doTransition() {
+
+        View sharedView = getView().findViewById(R.id.revealImage);
+        // fragment transition doesn't work
+
+        //            setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R
+        // .transition
+        //                    .change_image_transform));
+        //            setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R
+        // .transition.fade));
+        //
+        //            TransitionFragment fragment = new TransitionFragment();
+        //            fragment.setSharedElementEnterTransition(TransitionInflater.from(getActivity())
+        // .inflateTransition(R
+        //                    .transition.change_image_transform));
+        //            fragment.setEnterTransition(TransitionInflater.from(getActivity()).inflateTransition
+        // (android.R.transition.fade));
+        //
+        //            FragmentTransaction fragmentTransaction = getActivity().getFragmentManager()
+        // .beginTransaction();
+        //            fragmentTransaction.add(R.id.fragment, fragment);
+        //            fragmentTransaction.addToBackStack("Undo");
+        //            fragmentTransaction.addSharedElement(v, "logo");
+        //            fragmentTransaction.commit();
+
+        //            FragmentUtil.addFragment(getActivity(), TransitionFragment.class, R.id.fragment, true);
+
+        Intent intent = new Intent(getActivity(), TransitionActivity.class);
+        // create the transition animation - the images in the layouts
+        // of both activities are defined with android:transitionName="robot"
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), sharedView, "logo");
+        // start the new activity
+        getActivity().startActivity(intent, options.toBundle());
     }
 }
