@@ -1,7 +1,9 @@
-package com.vm.guides.bestpractui;
+package com.vm.guides.bestpractui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.vm.guides.bestpractui.R;
 
 public class MaterialActivityPreAPI21 extends AppCompatActivity {
 

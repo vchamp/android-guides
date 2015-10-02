@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="AppThemeBestPractUi" parent="android:Theme.Holo">
+    </style>
+
     <!-- inherit from the material theme -->
     <style name="MaterialTheme" parent="Theme.AppCompat">
         <!-- Main theme colors -->

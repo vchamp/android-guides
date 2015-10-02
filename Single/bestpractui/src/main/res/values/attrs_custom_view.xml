@@ -1,0 +1,17 @@
+<!-- http://developer.android.com/training/custom-views/create-view.html#customattr -->
+<resources>
+    <!--The name of the styleable entity is, by convention, the same name as the name of the class
+    that defines the custom view. Although it's not strictly necessary to follow this convention,
+    many popular code editors depend on this naming convention to provide statement completion.-->
+    <declare-styleable name="CustomView">
+        <attr name="exampleString" format="string"/>
+        <attr name="exampleDimension" format="dimension"/>
+        <attr name="exampleColor" format="color"/>
+        <attr name="exampleDrawable" format="color|reference"/>
+        <attr name="isShowText" format="boolean"/>
+        <attr name="labelPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

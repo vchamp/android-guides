@@ -2,6 +2,8 @@ package com.vm.guides.common;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.vm.guides.common.util.ColorUtil;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

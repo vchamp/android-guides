@@ -1,4 +1,4 @@
-package com.vm.guides.common;
+package com.vm.guides.common.util;
 
 import android.view.LayoutInflater;
 import android.view.View;

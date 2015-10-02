@@ -3,7 +3,6 @@ package com.vm.guides;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import com.vm.guides.bestpractui.MaterialActivity;
-import com.vm.guides.bestpractui.MaterialActivityPreAPI21;
-import com.vm.guides.common.FragmentUtil;
+import com.vm.guides.common.util.FragmentUtil;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -35,7 +32,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        int index = 0;
+        for (Class<? extends Activity> activityClass : Guides.ACTIVITY_LIST) {
+            menu.add(Menu.NONE, Menu.FIRST + index, Menu.NONE, activityClass.getSimpleName());
+            index++;
+        }
+
         return true;
     }
 
@@ -47,15 +51,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
-        } else if (id == R.id.action_material) {
-            startActivity(new Intent(this, MaterialActivity.class));
-        } else if (id == R.id.action_material_preAPI21) {
-            startActivity(new Intent(this, MaterialActivityPreAPI21.class));
+        } else if (id != android.R.id.home) {
+            int index = id - Menu.FIRST;
+            Class<? extends Activity> activityClass = Guides.ACTIVITY_LIST.get(index);
+            Log.i(TAG, "start guide " + activityClass.getSimpleName());
+            startActivity(new Intent(this, activityClass));
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -72,8 +79,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private PopupMenu.OnMenuItemClickListener addFragmentListener = new PopupMenu
-            .OnMenuItemClickListener() {
+    private PopupMenu.OnMenuItemClickListener addFragmentListener = new PopupMenu.OnMenuItemClickListener() {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {

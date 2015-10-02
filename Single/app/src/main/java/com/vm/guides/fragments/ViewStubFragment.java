@@ -1,8 +1,6 @@
 package com.vm.guides.fragments;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -12,7 +10,7 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 
 import com.vm.guides.R;
-import com.vm.guides.common.ColorUtil;
+import com.vm.guides.common.util.ColorUtil;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,39 +1,28 @@
-package com.vm.guides.bestpractui;
+package com.vm.guides.common.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
-import com.vm.guides.bestpractui.fragments.Fragments;
-import com.vm.guides.common.FragmentUtil;
+import com.vm.guides.common.R;
+import com.vm.guides.common.util.FragmentUtil;
 
-public class MaterialActivity extends Activity {
+import java.util.List;
 
-    private static final String TAG = MaterialActivity.class.getSimpleName();
+public abstract class TopicActivity extends Activity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private static final String TAG = TopicActivity.class.getSimpleName();
 
-        super.onCreate(savedInstanceState);
-
-        // must be called before adding content
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-
-        setContentView(R.layout.activity_material);
-
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+    protected abstract List<Class<? extends Fragment>> getTopicFragments();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_material, menu);
+        //        getMenuInflater().inflate(R.menu.menu_material, menu);
         int index = 0;
-        for (Class<? extends Fragment> fragmentClass : Fragments.FRAGMENT_LIST) {
+        for (Class<? extends Fragment> fragmentClass : getTopicFragments()) {
             menu.add(Menu.NONE, Menu.FIRST + index, Menu.NONE, fragmentClass.getSimpleName());
             index++;
         }
@@ -52,12 +41,13 @@ public class MaterialActivity extends Activity {
             return true;
         } else if (id != android.R.id.home) {
             int index = id - Menu.FIRST;
-            Class<? extends Fragment> fragmentClass = Fragments.FRAGMENT_LIST.get(index);
-            Log.i(TAG, "add fragment " + fragmentClass.getSimpleName());
+            Class<? extends Fragment> fragmentClass = getTopicFragments().get(index);
+            Log.i(TAG, "show fragment " + fragmentClass.getSimpleName());
             FragmentUtil.addFragment(this, fragmentClass, R.id.fragment, true);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
+
 }

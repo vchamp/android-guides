@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="AppThemeBestPractUi" parent="MaterialTheme">
+    </style>
+
     <!-- inherit from the material theme -->
     <style name="MaterialTheme" parent="android:Theme.Material">
         <!-- Main theme colors -->
