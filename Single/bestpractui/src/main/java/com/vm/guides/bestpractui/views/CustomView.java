@@ -14,7 +14,7 @@ import com.vm.guides.bestpractui.R;
 
 /**
  * http://developer.android.com/training/custom-views/create-view.html
- *
+ * <p/>
  * Taking some time to carefully define your view's interface reduces future maintenance costs. A good rule to follow
  * is to always expose any property that affects the visible appearance or behavior of your custom view.
  */
@@ -28,6 +28,14 @@ public class CustomView extends View {
     private TextPaint mTextPaint;
     private float mTextWidth;
     private float mTextHeight;
+
+    private int paddingLeft;
+    private int paddingTop;
+    private int paddingRight;
+    private int paddingBottom;
+
+    private int contentWidth;
+    private int contentHeight;
 
     public CustomView(Context context) {
 
@@ -53,7 +61,6 @@ public class CustomView extends View {
         // Load attributes
         //        Resource references within attribute values are resolved
         //        Styles are applied
-
         final TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.CustomView, defStyle, 0);
         try {
             mExampleString = a.getString(R.styleable.CustomView_exampleString);
@@ -93,8 +100,48 @@ public class CustomView extends View {
         // change its appearance, so that the system knows that it needs to be redrawn. Likewise, you need to request
         // a new layout if a property changes that might affect the size or shape of the view. Forgetting these
         // method calls can cause hard-to-find bugs.
+        // VM: required for views consisting of other views, not required for this view
         invalidate();
         requestLayout();
+    }
+
+    @Override
+//    If you need finer control over your view's layout parameters, implement onMeasure().
+// This method's parameters are View.MeasureSpec values that tell you how big your view's parent
+// wants your view to be, and whether that size is a hard maximum or just a suggestion.
+// As an optimization, these values are stored as packed integers, and you use the static methods
+// of View.MeasureSpec to unpack the information stored in each integer.
+    // VM: does nothing in this view
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // Try for a width based on our minimum
+        int minw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+//        The helper method resolveSizeAndState() is used to create the final width and height values.
+        int w = resolveSizeAndState(minw, widthMeasureSpec, 1);
+
+        // Whatever the width ends up being, ask for a height that would let the pie
+        // get as big as it can
+        int minh = MeasureSpec.getSize(w) - (int) mTextWidth + getPaddingBottom() + getPaddingTop();
+        int h = resolveSizeAndState(MeasureSpec.getSize(w) - (int) mTextWidth, heightMeasureSpec, 0);
+
+//        The method communicates its results by calling setMeasuredDimension(). Calling this method is mandatory.
+        setMeasuredDimension(w, h);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        paddingLeft = getPaddingLeft();
+        paddingTop = getPaddingTop();
+        paddingRight = getPaddingRight();
+        paddingBottom = getPaddingBottom();
+
+        contentWidth = w - paddingLeft - paddingRight;
+        contentHeight = h - paddingTop - paddingBottom;
+
+        if (mExampleDrawable != null) {
+            mExampleDrawable.setBounds(paddingLeft, paddingTop, paddingLeft + contentWidth, paddingTop + contentHeight);
+        }
     }
 
     @Override
@@ -102,23 +149,12 @@ public class CustomView extends View {
 
         super.onDraw(canvas);
 
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        int paddingLeft = getPaddingLeft();
-        int paddingTop = getPaddingTop();
-        int paddingRight = getPaddingRight();
-        int paddingBottom = getPaddingBottom();
-
-        int contentWidth = getWidth() - paddingLeft - paddingRight;
-        int contentHeight = getHeight() - paddingTop - paddingBottom;
-
         // Draw the text.
         canvas.drawText(mExampleString, paddingLeft + (contentWidth - mTextWidth) / 2, paddingTop + (contentHeight +
                 mTextHeight) / 2, mTextPaint);
 
         // Draw the example drawable on top of the text.
         if (mExampleDrawable != null) {
-            mExampleDrawable.setBounds(paddingLeft, paddingTop, paddingLeft + contentWidth, paddingTop + contentHeight);
             mExampleDrawable.draw(canvas);
         }
     }

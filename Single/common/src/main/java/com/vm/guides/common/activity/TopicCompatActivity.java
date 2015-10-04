@@ -1,7 +1,8 @@
 package com.vm.guides.common.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,9 +12,9 @@ import com.vm.guides.common.util.FragmentUtil;
 
 import java.util.List;
 
-public abstract class TopicActivity extends Activity {
+public abstract class TopicCompatActivity extends AppCompatActivity {
 
-    private static final String TAG = TopicActivity.class.getSimpleName();
+    private static final String TAG = TopicCompatActivity.class.getSimpleName();
 
     protected abstract List<Class<? extends Fragment>> getTopicFragments();
 

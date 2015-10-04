@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.vm.guides.bestpractui.R;
 import com.vm.guides.bestpractui.fragments.CustomViewClassFragment;
+import com.vm.guides.bestpractui.fragments.InteractiveViewFragment;
 import com.vm.guides.common.activity.TopicActivity;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class CustomViewActivity extends TopicActivity {
 
     static {
         FRAGMENT_LIST.add(CustomViewClassFragment.class);
+        FRAGMENT_LIST.add(InteractiveViewFragment.class);
     }
 
     @Override
