@@ -3,6 +3,7 @@ package com.vm.guides;
 import android.app.Activity;
 
 import com.vm.guides.bestpractinteraction.BestPractInteractionActivity;
+import com.vm.guides.bestpractsecurity.BestPractSecurityActivity;
 import com.vm.guides.bestpractui.BestPractUiActivity;
 
 import java.util.ArrayList;
@@ -15,5 +16,6 @@ public class Guides {
     static {
         ACTIVITY_LIST.add(BestPractUiActivity.class);
         ACTIVITY_LIST.add(BestPractInteractionActivity.class);
+        ACTIVITY_LIST.add(BestPractSecurityActivity.class);
     }
 }

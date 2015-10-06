@@ -1,1 +1,1 @@
-include ':app', ':common', ':bestpractui', ':bestpractinteraction'
+include ':app', ':common', ':bestpractui', ':bestpractinteraction', ':bestpractsecurity'
