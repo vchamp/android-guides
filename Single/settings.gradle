@@ -1,1 +1,1 @@
-include ':app', ':common', ':bestpractui', ':bestpractinteraction', ':bestpractsecurity'
+include ':app', ':common', ':bestpractui', ':bestpractinteraction', ':bestpractsecurity', ':designsupportlibrary'

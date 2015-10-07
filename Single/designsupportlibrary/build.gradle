@@ -1,11 +1,12 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+
+def platformToolsVersion = "23.0.1"
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion platformToolsVersion
 
     defaultConfig {
-        applicationId "com.vm.guides"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -21,11 +22,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common')
     testCompile 'junit:junit:4.12'
-    //    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile project(':bestpractui')
-    compile project(':bestpractinteraction')
-    compile project(':bestpractsecurity')
-    compile project(':designsupportlibrary')
+    compile "com.android.support:appcompat-v7:${platformToolsVersion}"
+    compile "com.android.support:recyclerview-v7:${platformToolsVersion}"
+    compile "com.android.support:design:${platformToolsVersion}"
+    compile project(':common')
 }
