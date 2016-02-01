@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.vm.guides"
-        minSdkVersion 15
+        minSdkVersion gMinSdkVersion
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"

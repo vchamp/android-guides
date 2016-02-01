@@ -44,24 +44,26 @@ public class DesignSupportLibraryActivity extends AppCompatActivity implements N
 
         setContentView(R.layout.activity_design_support_library);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-
-        findViewById(R.id.floatingActionButton).setOnClickListener(this);
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        // navigation
         if (savedInstanceState != null) {
             navItemId = savedInstanceState.getInt(NAV_ITEM_ID, DEFAULT_NAV_ITEM_ID);
         } else {
             navItemId = DEFAULT_NAV_ITEM_ID;
         }
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(navItemId);
+
+        // embraces all activity layout except navigation view,
+        // used for floating button placement, makes all components aware of scrolling
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+
+        findViewById(R.id.floatingActionButton).setOnClickListener(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(drawerToggle);

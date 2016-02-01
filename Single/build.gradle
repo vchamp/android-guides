@@ -18,6 +18,11 @@ allprojects {
     }
 }
 
+subprojects {
+    ext.gMinSdkVersion = 16
+    ext.gPlatformToolsVersion = "23.0.1"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
